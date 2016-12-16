@@ -1,0 +1,7 @@
+name = DNA Matcher
+description = Adds a form which creates other half of a DNA segment.
+package = My Modules
+core = 7.x
+files[] = dna.module
+files[] = dna.test
+dependencies[] = simpletest

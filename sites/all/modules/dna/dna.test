@@ -1,0 +1,38 @@
+<?php
+
+class DNATest extends DrupalUnitTestCase{
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Module unit tests',
+            'description' => 'Test DNA matching function',
+            'group' => 'My Tests',
+        );
+    }
+
+    public function testGetPair() {
+        $description = 'Test that A matches T';
+        $input = 'A';
+        $expected_output = 'T';
+        $result = get_pair($input);
+        $this->assertEqual($result, $expected_output, $description);
+
+        $description = 'Test that T matches A';
+        $input = 'T';
+        $expected_output = 'A';
+        $result = get_pair($input);
+        $this->assertEqual($result, $expected_output, $description);
+
+        $description = 'Test that C matches G';
+        $input = 'C';
+        $expected_output = 'G';
+        $result = get_pair($input);
+        $this->assertEqual($result, $expected_output, $description);
+
+        $description = 'Test that G matches C';
+        $input = 'G';
+        $expected_output = 'C';
+        $result = get_pair($input);
+        $this->assertEqual($result, $expected_output, $description);
+    }
+
+}
