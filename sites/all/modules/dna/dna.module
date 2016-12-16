@@ -1,7 +1,12 @@
 <?php
 
 function match_dna($dna) {
-    return get_pair($dna);
+    $dna_array = str_split($dna);
+    $match_array = array();
+    foreach ($dna_array as $letter) {
+        $match_array[] = get_pair($letter);
+    }
+    return implode($match_array);
 }
 
 function get_pair($dna) {
