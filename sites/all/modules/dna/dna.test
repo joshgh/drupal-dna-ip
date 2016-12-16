@@ -70,4 +70,12 @@ class DNAInterfaceTest extends DrupalWebTestCase {
         $this->drupalPost('dna', $info, t('Get Pair'));
         $this->assertText(t('Invalid input'), 'Spaces in input handled correctly');
     }
+
+    public function testValidInput() {
+        $info = array();
+        $info['input_dna'] = 'ATCG';
+        $this->drupalPost('dna', $info, t('Get Pair'));
+        $this->assertText('ATCG', 'Diplays input string');
+        $this->assertText('TAGC', 'Display correct output string');
+    }
 }
