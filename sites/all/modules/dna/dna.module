@@ -1,5 +1,53 @@
 <?php
 
+function dna_menu() {
+    $items['dna'] = array(
+        'title' => 'DNA Matcher',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dna_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['dna_result'] = array(
+        'title' => 'DNA Match Results',
+        'page callback' => 'dna_display_results',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+
+    return $items;
+}
+
+function dna_form() {
+    $form['input_dna'] = array(
+        '#title' => 'DNA Strand',
+        '#type' => 'textfield',
+        '#description' => t('Enter known half of DNA strand'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Get Pair',
+    );
+    return $form;
+}
+
+function dna_form_submit($form, &$form_state) {
+    $input_dna = $form_state['values']['input_dna'];
+    $matched_dna = match_dna($input_dna);
+    $_SESSION['input_dna'] = $input_dna;
+    $_SESSION['matched_dna'] = $matched_dna;
+    $form_state['redirect'] = 'dna_result';
+}
+
+function dna_display_results() {
+    $output = '';
+    $output .= '<p>Input DNA: ' . $_SESSION['input_dna'] . '</p>';
+    $output .= '<p>Matched DNA: ' . $_SESSION['matched_dna'] . '</p>';
+    return $output;
+}
+
 function match_dna($dna) {
     $dna_array = str_split($dna);
     $match_array = array();
