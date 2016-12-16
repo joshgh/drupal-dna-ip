@@ -42,3 +42,32 @@ class DNATest extends DrupalUnitTestCase{
     }
 
 }
+
+class DNAInterfaceTest extends DrupalWebTestCase {
+
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Module functional Tests',
+            'description' => 'Tests Form Validation on DNA Module',
+            'group' => 'My Tests',
+        );
+    }
+
+    public function setUp() {
+        parent::setUp(array('dna'));
+    }
+
+    public function testNonDnaLetter() {
+        $info = array();
+        $info['input_dna'] = 'Q';
+        $this->drupalPost('dna', $info, t('Get Pair'));
+        $this->assertText(t('Invalid input'), 'Invalid letter input handled correctly');
+    }
+
+    public function testSpaceInDNA() {
+        $info = array();
+        $info['input_dna'] = 'AT CG';
+        $this->drupalPost('dna', $info, t('Get Pair'));
+        $this->assertText(t('Invalid input'), 'Spaces in input handled correctly');
+    }
+}
