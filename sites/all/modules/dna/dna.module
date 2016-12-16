@@ -1,5 +1,19 @@
 <?php
 
+function match_dna($dna) {
+    return get_pair($dna);
+}
+
 function get_pair($dna) {
-    return $dna;
+    if ($dna === 'A') {
+        return 'T';
+    } elseif ($dna === 'T') {
+        return 'A';
+    } elseif ($dna === 'C') {
+        return 'G';
+    } elseif ($dna === 'G') {
+        return 'C';
+    } else {
+        return NULL;
+    }
 }

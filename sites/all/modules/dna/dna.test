@@ -9,7 +9,7 @@ class DNATest extends DrupalUnitTestCase{
         );
     }
 
-    public function testGetPair() {
+    public function testDNAMatch() {
         $description = 'Test that A matches T';
         $input = 'A';
         $expected_output = 'T';
@@ -32,6 +32,12 @@ class DNATest extends DrupalUnitTestCase{
         $input = 'G';
         $expected_output = 'C';
         $result = get_pair($input);
+        $this->assertEqual($result, $expected_output, $description);
+
+        $description = 'Test multi-matching';
+        $input = 'ATCGAATTCCGG';
+        $expected_output = 'TAGCTTAAGGCC';
+        $result = match_dna($input);
         $this->assertEqual($result, $expected_output, $description);
     }
 
