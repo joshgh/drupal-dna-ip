@@ -23,7 +23,8 @@ function dna_form() {
     $form['input_dna'] = array(
         '#title' => 'DNA Strand',
         '#type' => 'textfield',
-        '#description' => t('Enter known half of DNA strand'),
+        '#description' => t('Enter known half of DNA strand without any spaces'),
+        '#element_validate' => array('element_validate_dna_letter'),
         '#required' => TRUE,
     );
     $form['submit'] = array(
@@ -31,6 +32,12 @@ function dna_form() {
         '#value' => 'Get Pair',
     );
     return $form;
+}
+
+function element_validate_dna_letter($element) {
+    if(preg_match('/[^ATCG]/', $element['#value'])) {
+        form_error($element, t('Valid DNA letters are A T C G'));
+    }
 }
 
 function dna_form_submit($form, &$form_state) {
