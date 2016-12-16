@@ -1,0 +1,5 @@
+name = Ajax Articles
+description = Handles displaying articles linked from a list using ajax.
+package = My Modules
+core = 7.x
+files[] = ajax_articles.module

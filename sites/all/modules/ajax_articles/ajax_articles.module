@@ -1,0 +1,26 @@
+<?php
+
+    function ajax_articles_menu() {
+        $items['article_display/%/%'] = array(
+            'access arguments' => array('access content'),
+            'page callback' => 'show_article',
+            'page arguments' => array(1, 2),
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+    function show_article($js, $node_id) {
+        $node = node_load($node_id);
+
+        if ($js == 'nojs') {
+            drupal_goto('node/' .$node->nid);
+        }
+
+        $build = node_view($node);
+        $html = render($build);
+        $commands = array();
+        $commands[] = ajax_command_html('#ajax-article-target', $html);
+        print ajax_render($commands);
+        exit;
+    }
